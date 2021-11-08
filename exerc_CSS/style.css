@@ -1,0 +1,25 @@
+*{
+    background-color: #313C54;
+}
+
+h1 {
+    color: white;
+}
+
+h2 {
+    background-color: #f1c40f;
+    border: 3px solid black;
+}
+
+h3 {
+    color: #f1c40f ;
+}
+
+li{
+    color: white;
+}
+
+#exclusive {
+    color: red;
+}
+
