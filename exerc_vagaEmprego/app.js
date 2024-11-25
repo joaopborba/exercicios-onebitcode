@@ -1,5 +1,22 @@
 const vagas = [];
 
+
+function listarVagas(){
+    const vagaText = vagas.reduce(function(textoFinal, vaga, indice){
+        textoFinal += indice + ". "
+        textoFinal += vaga.nomeVaga
+        textoFinal += " (" + vaga.candidatos.length + " candidatos)\n"
+        return textoFinal
+    }, "")
+
+    if(vagas == ""){
+        alert("Sem vagas cadastradas")
+    }else{
+        alert(vagaText)
+    }
+
+}
+
 function criarVaga() {
     let nomeVaga = prompt("Digite o nome da vaga: ");
     let descVaga = prompt("Digite a descrição da vaga: ")
@@ -19,25 +36,44 @@ function criarVaga() {
 }
 
 function visualizarVaga(){
-    const indiceEscolhido = prompt("Qual indice da vaga que deseja visualizar: ")
-    alert("Nome da vaga: " + vagas[indiceEscolhido].nomeVaga +
-        "\nDescrição da vaga: " + vagas[indiceEscolhido].descVaga + 
-        "\nData limite: " + vagas[indiceEscolhido].dataVaga + 
-        "\nQuantidade de candidatos: " + vagas[indiceEscolhido].candidatos.length
+    const indice = prompt("Qual indice da vaga que deseja visualizar: ")
+
+    const listaCandidatos = vagas[indice].candidatos.reduce(function (textoFinal, candidato){
+        return textoFinal + "\n - " + candidato
+    }, "")
+
+    alert("Nome da vaga: " + vagas[indice].nomeVaga +
+        "\nDescrição da vaga: " + vagas[indice].descVaga + 
+        "\nData limite: " + vagas[indice].dataVaga + 
+        "\nQuantidade de candidatos: " + vagas[indice].candidatos.length +
+        "\nCandidatos inscritos: " + listaCandidatos
     )
 
 }
 
 function inscreverCandidato(){
     let nomeCandidato = prompt("Digite o nome do candidato: ")
-    let iVaga = prompt("Digite o índice da vaga escolhida: ")
+    let indice = prompt("Digite o índice da vaga escolhida: ")
 
-    let confirmacao = confirm("Deseja incluir o candidato " + nomeCandidato + " na vaga " + vagas[iVaga].nomeVaga + "?")
+    let confirmacao = confirm("Deseja incluir o candidato " + nomeCandidato + " na vaga " + vagas[indice].nomeVaga + "?")
 
     if(confirmacao){
-        vagas[iVaga].candidatos.push(nomeCandidato)
+        vagas[indice].candidatos.push(nomeCandidato)
         alert("Candidato cadastro com sucesso")
     }
+}
+
+function excluirVaga(){
+    let indice = prompt("Digite o índice da vaga a ser excluída: ")
+    let confirmacao = confirm("Deseja excluir essa vaga: " +
+        "Nome da vaga: " + vagas[indice].nomeVaga
+    )
+
+    if(confirmacao){
+        vagas.splice(indice, 1)
+        alert("Vaga excluída com sucesso")
+    }
+
 }
 
 function exibirMenu(){
@@ -52,6 +88,7 @@ function menu() {
 
         switch (opcao) {
             case "1":
+                listarVagas();
                 break
             case "2":
                 criarVaga();
@@ -63,6 +100,7 @@ function menu() {
                 inscreverCandidato();
                 break
             case "5":
+                excluirVaga();
                 break
             case "6":
                 alert("Saindo.")
@@ -72,3 +110,5 @@ function menu() {
         }
     } while (opcao !== "6")
 }
+
+menu();
