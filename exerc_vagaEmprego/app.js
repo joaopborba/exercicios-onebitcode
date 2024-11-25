@@ -72,5 +72,3 @@ function menu() {
         }
     } while (opcao !== "6")
 }
-
-menu();
